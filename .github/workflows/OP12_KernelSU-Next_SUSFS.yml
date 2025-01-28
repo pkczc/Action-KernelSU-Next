@@ -105,15 +105,25 @@ jobs:
            cp ../kernel_patches/selinux.c_fix.patch ./
            patch -p1 -F 3 < selinux.c_fix.patch
 
-     # - name: add name
-     #   run: |
-     #    cd kernel_workspace
-     #   sed -i '$s|echo "\$res"|echo "\$res-PKCZC"|' kernel_platform/common/scripts/setlocalversion
+      - name: add name
+        run: |
+         cd kernel_workspace
+         echo "# CONFIG_LOCALVERSION_AUTO is not set" >> kernel_platform/common/arch/arm64/configs/gki_defconfig
+         sed -i '$s|echo "\$res"|echo "\$res-PKCZC"|' kernel_platform/common/scripts/setlocalversion
+         
+
+         
          
       - name: Build kernel
         run: |
          cd kernel_workspace
          ./kernel_platform/oplus/build/oplus_build_kernel.sh pineapple gki
+         
+      - name: check kernel version
+        run: |
+         cd kernel_workspace
+         cat /path/to/kernel/source/.config | grep CONFIG_LOCALVERSION
+
          
       - name: Make AnyKernel3
         run: |
