@@ -119,12 +119,6 @@ jobs:
          cd kernel_workspace
          ./kernel_platform/oplus/build/oplus_build_kernel.sh pineapple gki
          
-      - name: check kernel version
-        run: |
-         cd kernel_workspace
-         cat /path/to/kernel/source/.config | grep CONFIG_LOCALVERSION
-
-         
       - name: Make AnyKernel3
         run: |
          git clone https://github.com/Kernel-SU/AnyKernel3 --depth=1
