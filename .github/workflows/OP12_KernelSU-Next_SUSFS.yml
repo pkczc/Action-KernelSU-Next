@@ -105,15 +105,10 @@ jobs:
            cp ../kernel_patches/selinux.c_fix.patch ./
            patch -p1 -F 3 < selinux.c_fix.patch
 
-      #- name: add name
-      #   run: |
-      #   cd kernel_workspace
-      #   echo "# CONFIG_LOCALVERSION_AUTO is not set" >> kernel_platform/common/arch/arm64/configs/gki_defconfig
-      #   echo "# CONFIG_MODULE_SCMVERSION=y" >> kernel_platform/common/arch/arm64/configs/gki_defconfig
-      #   sed -i '$s|echo "\$res"|echo "\$res-PKCZC"|' kernel_platform/common/scripts/setlocalversion
-         
-
-         
+      - name: add name
+        run: |
+        cd kernel_workspace
+        sed -i '$s|echo "\$res"|echo "\$res-PKCZC"|' kernel_platform/common/scripts/setlocalversion
          
       - name: Build kernel
         run: |
